@@ -1,2 +1,4 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+VB/* linguist-vendored
+scripts linguist-vendored
+*.css linguist-detectable=false
+*.aff linguist-detectable=false
