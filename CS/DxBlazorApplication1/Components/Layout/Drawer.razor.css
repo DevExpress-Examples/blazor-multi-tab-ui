@@ -1,0 +1,37 @@
+﻿::deep .navigation-drawer {
+    --dxbl-drawer-panel-footer-justify-content: center;
+    height: 100vh;
+    max-height: 100%;
+}
+
+::deep .panel-open:not(.mobile) .menu-button {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    ::deep .panel-open:not(.mobile) .menu-button {
+        display: inline-flex;
+    }
+
+    .mobile-drawer-closed .shading-copy {
+        display: none;
+        visibility: hidden;
+    }
+
+    ::deep .shading-copy {
+        background-color: var(--dxbl-drawer-content-shading-bg);
+        height: 100%;
+        position: absolute;
+        transition: opacity ease var(--dxbl-drawer-animation-duration);
+        visibility: visible;
+        width: 100%;
+        z-index: 99;
+        opacity: var(--dxbl-drawer-content-shading-opacity);
+    }
+
+    ::deep .panel-open .shading-copy {
+        opacity: 0;
+        visibility: unset;
+        height: unset;
+    }
+}

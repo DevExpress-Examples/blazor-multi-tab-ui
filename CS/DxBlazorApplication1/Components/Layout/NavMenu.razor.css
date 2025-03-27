@@ -1,0 +1,81 @@
+﻿#sidebar {
+    min-width: 15rem;
+    max-width: 15rem;
+    transition: transform 0.1s ease-out;
+    height: 100%;
+    max-height: 100%;
+    display: block;
+    background: inherit;
+}
+
+.logo {
+    text-align: center;
+}
+
+::deep .menu.display-mobile {
+    margin-bottom: 2rem;
+}
+
+::deep .menu.display-iam {
+    margin-bottom: 2rem;
+}
+
+::deep .menu {
+    background-color: inherit;
+}
+
+    ::deep .menu .dxbl-menu-item-list {
+        gap: 0.5rem;
+    }
+
+::deep .menu-item {
+    color: var(--bs-white);
+}
+
+::deep .icon {
+    width: 1rem;
+    height: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 0.5rem;
+}
+
+::deep .home-icon {
+    background-image: url("images/home.svg");
+}
+
+::deep .weather-icon {
+    background-image: url("images/weather.svg");
+}
+
+::deep .counter-icon {
+    background-image: url("images/counter.svg");
+}
+
+::deep .settings-icon {
+    background-image: url("images/account/settings.svg");
+}
+
+::deep .log-in-icon {
+    background-image: url("images/account/log-in.svg");
+}
+
+::deep .log-out-icon {
+    background-image: url("images/account/log-out.svg");
+}
+
+::deep .user-icon {
+    background-image: url("images/account/user.svg");
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        min-width: inherit;
+        max-width: inherit;
+        display: block;
+    }
+
+    .logo {
+        text-align: inherit;
+    }
+}

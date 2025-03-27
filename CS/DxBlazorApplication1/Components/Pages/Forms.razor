@@ -1,0 +1,26 @@
+﻿@page "/forms"
+
+<style>
+    .my-form{
+        width: 600px;
+    }
+</style>
+
+<DxFormLayout CssClass="my-form">
+    <DxFormLayoutItem Caption="Name">
+        <DxTextBox></DxTextBox>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem Caption="Age">
+        <DxSpinEdit T="int"></DxSpinEdit>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem Caption="DOB">
+        <DxDateEdit T="DateTime"></DxDateEdit>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem Caption="Hobbies">
+        <DxTagBox TData="string" TValue="string" 
+            Data="@(new List<string>(){"Swimming", "Hiking", "Chess"})"></DxTagBox>
+    </DxFormLayoutItem>
+    <DxFormLayoutItem ColSpanMd="12" Caption="Photo">
+        <DxFileInput></DxFileInput>
+    </DxFormLayoutItem>
+</DxFormLayout>

@@ -1,0 +1,14 @@
+﻿﻿<div id="sidebar">
+    <DxMenu ItemClick="async (e) => await ItemClick.InvokeAsync(e)" Orientation="@Orientation.Vertical" CssClass="menu">
+        <Items>
+            <DxMenuItem Name="Counter" Text="Counter" CssClass="menu-item" IconCssClass="icon counter-icon"></DxMenuItem>
+            <DxMenuItem Name="Weather" Text="Weather" CssClass="menu-item" IconCssClass="icon weather-icon"></DxMenuItem>                                    
+            <DxMenuItem Name="Forms" Text="Forms" CssClass="menu-item" IconCssClass="icon weather-icon"></DxMenuItem>                                    
+        </Items>
+    </DxMenu>
+</div>
+
+@code{
+    [Parameter]
+    public EventCallback<MenuItemClickEventArgs> ItemClick { get; set; }
+}

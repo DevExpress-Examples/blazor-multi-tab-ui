@@ -1,0 +1,137 @@
+﻿@page "/"
+@using System.Text.Json
+@using DxBlazorApplication1.Components.MDI
+@inject IJSRuntime JS
+@inject MDIStateHelper StateHelper
+
+<div @ref=divContainer>
+    <DxTabs @ref=tabs
+    @bind-ActiveTabIndex=activeTabIndex
+    AllowTabReorder="true"
+    TabReordering="OnTabReordering"
+    TabClosing="OnTabClosing"
+    RenderMode="TabsRenderMode.AllTabs">
+        <DxTabPage CssClass="t1" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Counter")" Visible="@collection.GetVisibleByTabText("Counter")" Text="Counter">
+            <Counter></Counter>
+        </DxTabPage>
+        <DxTabPage CssClass="t2" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Weather")" Visible="@collection.GetVisibleByTabText("Weather")" Text="Weather">
+            <Weather></Weather>
+        </DxTabPage>
+        <DxTabPage CssClass="t3" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Forms")" Visible="@collection.GetVisibleByTabText("Forms")" Text="Forms">
+            <Forms></Forms>
+        </DxTabPage>
+    </DxTabs>
+</div>
+
+<DxContextMenu @ref=menu>
+    <Items>
+        <DxContextMenuItem Click="CloseTab" Text="Close"></DxContextMenuItem>
+        <DxContextMenuItem Click="CloseAllTabs" Text="Close All Tabs"></DxContextMenuItem>
+        <DxContextMenuItem Click="CloseOtherTabs" Text="Close Other Tabs"></DxContextMenuItem>
+        <DxContextMenuItem Click="RestoreAllTabs" Text="Restore Closed Tabs"></DxContextMenuItem>
+    </Items>
+</DxContextMenu>
+
+@code {
+    [CascadingParameter(Name = "ClickedMenuItemName")]
+    public IMenuItemInfo? ClickedMenuItem { get; set; }
+
+    private ElementReference divContainer;
+    private DxContextMenu? menu;
+    private DxTabs? tabs;
+
+    private MDITabCollection collection = new MDITabCollection();
+
+    private int activeTabIndex;
+    private string? clickedTabText;
+    private bool isReordering;
+
+    [JSInvokable]
+    public async Task ShowContextMenu(MouseEventArgs e, string tabText) {
+        clickedTabText = tabText;
+        if(menu != null) {
+            await menu.ShowAsync(e);
+        }
+    }
+
+    #region DxTabs Event Handlers
+
+    private async Task OnTabClosing(TabCloseEventArgs e) {
+        collection.SetVisibleByTabText(e.TabInfo.Text, false);
+        await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+    }
+
+    private async Task OnTabReordering(TabReorderEventArgs e) {
+        var vi1 = collection.GetVisibleIndexByTabText(e.FromTabInfo.Text);
+        var vi2 = collection.GetVisibleIndexByTabText(e.ToTabInfo.Text);
+        collection.SetVisibleIndexByTabText(e.FromTabInfo.Text, vi2);
+        collection.SetVisibleIndexByTabText(e.ToTabInfo.Text, vi1);
+        isReordering = true;
+    }
+
+    #endregion
+
+    #region DxContextMenuItem.Click Event Handlers
+
+    private async Task CloseTab() {
+        collection.SetVisibleByTabText(clickedTabText, false);
+        await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+    }
+
+    private async Task CloseAllTabs() {
+        collection.SetVisibleAllTabs(false);
+        await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+    }
+
+    private async Task CloseOtherTabs() {
+        collection.SetVisibleAllTabs(false);
+        collection.SetVisibleByTabText(clickedTabText, true);
+        await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+    }
+
+    private async Task RestoreAllTabs() {
+        collection.SetVisibleAllTabs(true);
+        await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+    }
+
+    #endregion
+
+    #region Life-Cycle Event Handlers
+
+    protected override async Task OnParametersSetAsync() {
+        await base.OnParametersSetAsync();
+
+        if(ClickedMenuItem is null) 
+            return;
+
+        if(!collection.GetVisibleByTabText(ClickedMenuItem.Name)) {
+            collection.SetVisibleByTabText(ClickedMenuItem.Name, true);
+            await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+        }
+        activeTabIndex = collection.GetVisibleIndexByTabText(ClickedMenuItem.Name);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if(firstRender) {
+            var cacheCollection = await StateHelper.LoadLayoutFromLocalStorageAsync();
+            if(cacheCollection is null || cacheCollection.Count == 0) {
+                collection = new MDITabCollection(tabs!.GetOrderedTabs());
+            }
+            else {
+                collection = cacheCollection;
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        
+        foreach(ITabInfo tab in tabs!.GetOrderedTabs()) {
+            await JS.InvokeVoidAsync("addContextMenuHandler", divContainer, tab.CssClass, collection.GetTabTextByTabInfo(tab), DotNetObjectReference.Create(this));
+        }
+
+        if(isReordering) {
+            await StateHelper.SaveLayoutToLocalStorageAsync(collection);
+            isReordering = false;
+        }
+    }
+
+    #endregion
+}
