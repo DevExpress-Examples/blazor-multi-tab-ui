@@ -11,13 +11,13 @@
     TabReordering="OnTabReordering"
     TabClosing="OnTabClosing"
     RenderMode="TabsRenderMode.AllTabs">
-        <DxTabPage CssClass="t1" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Counter")" Visible="@collection.GetVisibleByTabText("Counter")" Text="Counter">
+        <DxTabPage CssClass="counter-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Counter")" Visible="@collection.GetVisibleByTabText("Counter")" Text="Counter">
             <Counter></Counter>
         </DxTabPage>
-        <DxTabPage CssClass="t2" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Weather")" Visible="@collection.GetVisibleByTabText("Weather")" Text="Weather">
+        <DxTabPage CssClass="weather-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Weather")" Visible="@collection.GetVisibleByTabText("Weather")" Text="Weather">
             <Weather></Weather>
         </DxTabPage>
-        <DxTabPage CssClass="t3" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Forms")" Visible="@collection.GetVisibleByTabText("Forms")" Text="Forms">
+        <DxTabPage CssClass="forms-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Forms")" Visible="@collection.GetVisibleByTabText("Forms")" Text="Forms">
             <Forms></Forms>
         </DxTabPage>
     </DxTabs>
