@@ -122,9 +122,10 @@
             }
             await InvokeAsync(StateHasChanged);
         }
-        
+
+        var dotNetInstance = DotNetObjectReference.Create(this);
         foreach(ITabInfo tab in tabs!.GetOrderedTabs()) {
-            await JS.InvokeVoidAsync("addContextMenuHandler", divContainer, tab.CssClass, collection.GetTabTextByTabInfo(tab), DotNetObjectReference.Create(this));
+            await JS.InvokeVoidAsync("addContextMenuHandler", divContainer, tab.CssClass, collection.GetTabTextByTabInfo(tab), dotNetInstance);
         }
 
         if(isReordering) {
