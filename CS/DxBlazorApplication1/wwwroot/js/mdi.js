@@ -1,6 +1,7 @@
 ﻿function addContextMenuHandler(container, tabClass, text, dotNetObject) {
     var tabElement = container.getElementsByClassName(tabClass)[0];
-    if (!tabElement) return;
+    if (!tabElement || tabElement.hasAttribute("cp_ctx")) return;
+    tabElement.setAttribute("cp_ctx", true);
     tabElement.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         let eventArgs = {
