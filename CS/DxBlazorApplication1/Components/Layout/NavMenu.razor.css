@@ -48,6 +48,10 @@
     background-image: url("images/weather.svg");
 }
 
+::deep .form-icon {
+    background-image: url("images/form.svg");
+}
+
 ::deep .counter-icon {
     background-image: url("images/counter.svg");
 }

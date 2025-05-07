@@ -4,6 +4,8 @@
 @inject IJSRuntime JS
 @inject MDIStateHelper StateHelper
 
+<PageTitle>Multi-Tab Interface</PageTitle>
+
 <div @ref=divContainer>
     <DxTabs @ref=tabs
     @bind-ActiveTabIndex=activeTabIndex
@@ -12,13 +14,19 @@
     TabClosing="OnTabClosing"
     RenderMode="TabsRenderMode.AllTabs">
         <DxTabPage CssClass="counter-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Counter")" Visible="@collection.GetVisibleByTabText("Counter")" Text="Counter">
-            <Counter></Counter>
+            <div class="tab-body">
+                <Counter />
+            </div>
         </DxTabPage>
         <DxTabPage CssClass="weather-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Weather")" Visible="@collection.GetVisibleByTabText("Weather")" Text="Weather">
-            <Weather></Weather>
+            <div class="tab-body">
+                <Weather />
+            </div>
         </DxTabPage>
-        <DxTabPage CssClass="forms-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Forms")" Visible="@collection.GetVisibleByTabText("Forms")" Text="Forms">
-            <Forms></Forms>
+        <DxTabPage CssClass="form-tab" AllowClose="true" VisibleIndex="@collection.GetVisibleIndexByTabText("Form")" Visible="@collection.GetVisibleByTabText("Form")" Text="Form">
+            <div class="tab-body">
+                <Form />
+            </div>
         </DxTabPage>
     </DxTabs>
 </div>
