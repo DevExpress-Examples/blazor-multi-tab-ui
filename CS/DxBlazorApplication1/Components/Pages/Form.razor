@@ -1,4 +1,4 @@
-﻿@page "/forms"
+﻿@page "/form"
 
 <style>
     .my-form{
@@ -11,16 +11,17 @@
         <DxTextBox></DxTextBox>
     </DxFormLayoutItem>
     <DxFormLayoutItem Caption="Age">
-        <DxSpinEdit T="int"></DxSpinEdit>
-    </DxFormLayoutItem>
-    <DxFormLayoutItem Caption="DOB">
-        <DxDateEdit T="DateTime"></DxDateEdit>
+        <DxSpinEdit T="int" MinValue="0"></DxSpinEdit>
     </DxFormLayoutItem>
     <DxFormLayoutItem Caption="Hobbies">
         <DxTagBox TData="string" TValue="string" 
             Data="@(new List<string>(){"Swimming", "Hiking", "Chess"})"></DxTagBox>
     </DxFormLayoutItem>
-    <DxFormLayoutItem ColSpanMd="12" Caption="Photo">
-        <DxFileInput></DxFileInput>
+    <DxFormLayoutItem BeginRow="true">
+        <DxFileInput SelectButtonText="Add a Photo"></DxFileInput>
     </DxFormLayoutItem>
 </DxFormLayout>
+
+@code {
+    DateTime Today = DateTime.Today;
+}
