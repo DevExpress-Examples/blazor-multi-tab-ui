@@ -12,9 +12,11 @@ The example demonstrates how to create an interactive multi-tab web interface wi
 
 It showcases core features that help end users build their personalized workspaces and multitask effectively.
 
+## Implementation Details
+
 ### Organize Content Into Tabs
 
-Place [DxTabs](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxTabs) container on the page (_Components/Pages/Index.razor_) and add a [DxTabPage](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxTabPage) for each tab.
+Place [DxTabs](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxTabs) container on the page ([Index.razor](CS/DxBlazorApplication1/Components/Pages/Index.razor)) and add a [DxTabPage](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxTabPage) for each tab.
 
 Insert your custom Blazor components or content directly into each DxTabPage.
 
@@ -40,11 +42,11 @@ The CssClass property of a tab page serves as a unique identifier, allowing clie
 
 ### Persist Tab State
 
-Implement a custom **MDITab** class to encapsulate specific properties of each individual tab. **MDITabCollection** will control visibility, display order, and titles of all tabs. The title links an underlying object to the visual tab representation in the UI.
+Implement a custom `MDITab` class to encapsulate specific properties of each individual tab. `MDITabCollection` will control visibility, display order, and titles of all tabs. The title links an underlying object to the visual tab representation in the UI.
 
-Bind these properties to the visual tab elements in the UI. To ensure the MDITabCollection accurately reflects the live interface, implement event handlers for TabReorder and TabClosing. These handlers will listen for user actions and dynamically update the collection to match the current tab state.
+Bind these properties to the visual tab elements in the UI. To ensure the `MDITabCollection` accurately reflects the live interface, implement event handlers for TabReorder and TabClosing. These handlers will listen for user actions and dynamically update the collection to match the current tab state.
 
-To maintain the tab layout across sessions, serialize the collection to JSON and save it to the browser's local storage with **MDIStateHelper** class every time the UI layout changes. It maintains the tab visibility and order even after the user closes and reopens the browser. Tab state is restored in the OnAfterRenderAsync event handler.
+To maintain the tab layout across sessions, serialize the collection to JSON and save it to the browser's local storage with `MDIStateHelper` class every time the UI layout changes. It maintains the tab visibility and order even after the user closes and reopens the browser. Tab state is restored in the OnAfterRenderAsync event handler.
 
 ### Add Context Menu to Tabs
 
@@ -55,7 +57,7 @@ Create a context menu that allows users to manage tabs:
 - Close all tabs except for the current one.
 - Restore closed tabs.
 
-Place [DxContextMenu](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxContextMenu) on the page (_Components/Pages/Index.razor_) and add a [DxContextMenuItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxContextMenuItem) for each menu action.
+Place [DxContextMenu](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxContextMenu) on the page ([Index.razor](CS/DxBlazorApplication1/Components/Pages/Index.razor)) and add a [DxContextMenuItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxContextMenuItem) for each menu action.
 
 ```razor
 <DxContextMenu @ref=menu>
@@ -68,17 +70,17 @@ Place [DxContextMenu](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxCon
 </DxContextMenu>
 ```
 
-Implement a client-side script (_wwwroot/js/mdi.js_) to handle right-clicks on specific tabs, identified by their CssClass property. This script should prevent the default browser context menu. Capture the mouse position, and invoke a .NET [JSInvokable] method.
+Implement a client-side script ([mdi.js](CS/DxBlazorApplication1/wwwroot/js/mdi.js)) to handle right-clicks on specific tabs, identified by their CssClass property. This script should prevent the default browser context menu. Capture the mouse position, and invoke a .NET `[JSInvokable]` method.
 
 ## Files to Review
 
-- Index.razor
-- NavMenu.razor
-- MainLayout.razor
-- MDITab.cs
-- MDITabCollection.cs
-- MDIStateHelper.cs
-- mdi.js
+- [Index.razor](CS/DxBlazorApplication1/Components/Pages/Index.razor)
+- [NavMenu.razor](CS/DxBlazorApplication1/Components/Layout/NavMenu.razor)
+- [MainLayout.razor](CS/DxBlazorApplication1/Components/Layout/MainLayout.razor.css)
+- [MDITab.cs](CS/DxBlazorApplication1/Components/MDI/MDITab.cs)
+- [MDITabCollection.cs](CS/DxBlazorApplication1/Components/MDI/MDITabCollection.cs)
+- [MDIStateHelper.cs](CS/DxBlazorApplication1/Components/MDI/MDIStateHelper.cs)
+- [mdi.js](CS/DxBlazorApplication1/wwwroot/js/mdi.js)
 
 ## Documentation
 
