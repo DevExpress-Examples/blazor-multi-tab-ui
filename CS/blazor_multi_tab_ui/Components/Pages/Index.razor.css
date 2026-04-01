@@ -34,7 +34,7 @@
     box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s;
     border-radius: 1rem;
-    color: var(--bs-link-color-rgb);
+    color: var(--dxds-primary-90);
     gap: 1.5rem;
     text-decoration: none;
     position: relative;
@@ -58,7 +58,7 @@
     }
 
     ::deep .icon-fill {
-        fill: var(--bs-primary);
+        fill: var(--dxds-primary-90);
     }
 
     ::deep .welcome-card .welcome-card-back {
@@ -67,7 +67,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--bs-body-color);
+        background: currentColor;
         opacity: 0.05;
         border-radius: 1rem;
         z-index: -2;
