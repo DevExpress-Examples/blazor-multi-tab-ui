@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "blazor_multi_tab_ui": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:2137;http://localhost:2138"
+    }
+  }
+}
